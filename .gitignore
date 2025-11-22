@@ -1,0 +1,28 @@
+# Binaries
+bin/
+/quiz-service
+/quiz-server
+
+# Build artifacts
+*.out
+
+# Go
+**/*.test
+
+# Editor/IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Containers
+.env
+
+# Coverage / logs
+coverage.*
+*.log
+
+# Testcontainers
+.testcontainers*
+
+# Vendor
+vendor/

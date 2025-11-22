@@ -1,0 +1,14 @@
+server:
+  port: "8080"
+
+redis:
+  addr: "localhost:6379"
+  password: ""
+  db: 0
+  ttl: "10m"
+
+postgres:
+  url: "postgres://quiz:quizpass@localhost:5432/quizdb?sslmode=disable"
+
+quiz:
+  ttl: "10m"
