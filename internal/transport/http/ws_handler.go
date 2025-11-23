@@ -88,7 +88,7 @@ func (h *WSHandler) ServeWS(w http.ResponseWriter, r *http.Request) {
 	writerDone := make(chan struct{})
 	updatesDone := make(chan struct{})
 
-	// AI-assisted: read/write wiring adapted from Gorilla patterns with ChatGPT; verified via reasoning and tests to prevent concurrent writes.
+	// AI-assisted implementation per your direction: read/write wiring adapted from Gorilla patterns with ChatGPT; verified via reasoning and tests to prevent concurrent writes.
 	go func() {
 		defer close(writerDone)
 		for msg := range send {
