@@ -234,6 +234,7 @@ func (s *Session) snapshotLocked() domain.Leaderboard {
 		})
 	}
 
+	// AI-assisted per your guidance: tie-breaker logic (score desc, then earliest completion, then name) drafted with ChatGPT to prioritize faster finishers.
 	sort.Slice(entries, func(i, j int) bool {
 		if entries[i].Score != entries[j].Score {
 			return entries[i].Score > entries[j].Score
