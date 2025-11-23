@@ -7,7 +7,7 @@ import (
 	"log"
 
 	"elsa-quiz-service/internal/config"
-	pgmigrations "elsa-quiz-service/internal/infra/postgres/migrations"
+	pgmigrations "elsa-quiz-service/migrations"
 	"github.com/spf13/cobra"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
