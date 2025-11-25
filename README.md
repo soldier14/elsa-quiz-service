@@ -5,6 +5,41 @@ This service provides a real-time quiz component: users join a quiz by ID, submi
 ### Component/Data Flow (C4 Component Diagram)
 ![Component diagram](docs/component-diagram.png)
 
+### WebSocket Contract
+- Connect:
+  ```
+  ws://localhost:8080/ws?quizId={quiz}&userId={user}&name={displayName}
+  ```
+- Messages:
+  ```json
+  // Client -> server
+  {"type":"answer","payload":{"questionId":"q1","optionId":"o2"}}
+
+  // Server -> client events
+  {"type":"joined","payload":<leaderboard>}
+  {"type":"leaderboard","payload":<leaderboard>}
+  {"type":"answerResult","payload":{"questionId":"q1","correct":true,"awarded":1,"totalScore":5}}
+  {"type":"error","payload":{"message":"..."}}
+  ```
+- Leaderboard shape:
+  ```json
+  {
+    "quizId": "quiz-1",
+    "updatedAt": "2024-01-01T00:00:00Z",
+    "entries": [
+      {"userId":"u2","displayName":"Bob","score":5},
+      {"userId":"u1","displayName":"Alice","score":0}
+    ]
+  }
+  ```
+
+### Clean Architecture Layout
+- `cmd/server`: wiring (HTTP server, routes, graceful shutdown).
+- `internal/domain`: entities and domain errors.
+- `internal/app`: quiz use cases and session orchestration (framework-agnostic).
+- `internal/infra/memory`: in-memory `SessionStore` (swap with Redis/DB).
+- `internal/transport/http`: Gorilla WebSocket handler.
+
 ### Quick Start
 - Prereqs: Go 1.22+, internet (to fetch `github.com/gorilla/websocket` if not cached).
 - Run the server:
@@ -70,9 +105,6 @@ This service provides a real-time quiz component: users join a quiz by ID, submi
 - `internal/app`: quiz use cases and session orchestration (framework-agnostic).
 - `internal/infra/memory`: in-memory `SessionStore` (swap with Redis/DB).
 - `internal/transport/http`: Gorilla WebSocket handler.
-
-### Component/Data Flow (C4 Component Diagram)
-![Component diagram](docs/component-diagram.png)
 
 ### AI Collaboration Notes
 - AI-assisted sections are called out inline (e.g., WebSocket goroutine wiring, broadcast backpressure handling). Verification steps include reasoning about single-writer semantics and unit tests covering join/score/subscribe flows.
