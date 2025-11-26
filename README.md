@@ -1,4 +1,5 @@
 ## Real-Time Quiz Service (Clean Architecture + Gorilla WebSocket)
+<img width="631" height="774" alt="image" src="https://github.com/user-attachments/assets/f46a6bf5-43ed-4f6c-94cf-42c4ab0b4584" />
 
 This service provides a real-time quiz component: users join a quiz by ID, submit answers, and receive live leaderboard updates over WebSockets. It follows a clean architecture layout: transport (WebSocket), application use cases, domain entities, and swappable infrastructure (in-memory session store today).
 
